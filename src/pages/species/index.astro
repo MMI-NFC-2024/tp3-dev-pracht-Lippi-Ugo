@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Headerspecifics from "../../components/Headerspecifics.astro";
+---
+
+<Layout>
+    <Headerspecifics current="/species" />
+    <div
+        class="p-1 rounded-md bg-[linear-gradient(90deg,#4299e1_0%,#805ad5_100%)] inline-block"
+    >
+        <select
+            id="species"
+            class="p-2 rounded-md bg-white text-gray-800 focus:outline-none"
+        >
+            <option value=""></option>
+            <option value="Adelie">Adelie</option>
+            <option value="Chinstrap">Chinstrap</option>
+            <option value="Gentoo">Gentoo</option>
+        </select>
+    </div>
+</Layout>
+
+<script>
+    document.querySelector("#species")?.addEventListener("change", (evt) => {
+        const value = (evt.target as HTMLSelectElement).value;
+        location.pathname = "/species/" + value;
+    });
+</script>
