@@ -1,0 +1,54 @@
+---
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+import Header from "../../components/Headerspecifics.astro";
+import Layout from "../../layouts/Layout.astro";
+const species = ["Adelie", "Gentoo", "Chinstrap"];
+---
+
+<Layout>
+  <Header/>
+  <nav class="sticky top-0 z-10 bg-white shadow px-4 py-2 flex gap-4">
+    {
+      species.map((name) => (
+        <a
+          href={`#${name.toLowerCase()}`}
+          class="text-blue-600 hover:underline"
+        >
+          {name}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div
+    class="flex overflow-auto scroll-smooth scroll-snap-type-x-mandatory"
+  >
+    <section
+      class="min-w-full rounded-xl border border-slate-200 bg-white shadow-sm"
+      id="adelie"
+    >
+      <h2 class="mb-2 text-2xl font-semibold px-8">Adelie</h2>
+      <div class="w-full flex px-12">
+        <GraphicSpecies species="Adelie" />
+      </div>
+    </section>
+    <section
+      class="min-w-full rounded-xl border border-slate-200 bg-white shadow-sm"
+      id="gentoo"
+    >
+      <h2 class="mb-2 text-2xl font-semibold px-8">Gentoo</h2>
+      <div class="w-full flex px-12">
+        <GraphicSpecies species="Gentoo" />
+      </div>
+    </section>
+    <section
+      class="min-w-full rounded-xl border border-slate-200 bg-white shadow-sm"
+      id="chinstrap"
+    >
+      <h2 class="mb-2 text-2xl font-semibold px-8">Chinstrap</h2>
+      <div class="w-full flex px-12">
+        <GraphicSpecies species="Chinstrap" />
+      </div>
+    </section>
+  </div>
+</Layout>

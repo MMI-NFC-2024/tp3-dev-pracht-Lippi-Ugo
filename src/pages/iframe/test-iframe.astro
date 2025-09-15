@@ -1,0 +1,34 @@
+---
+import Layout from '../../layouts/Layout.astro'
+---
+<Layout>
+    <div>
+    <style>
+    iframe {
+      width: 100%;
+      transition: height 0.2s;
+      min-height: 100vh; /* grand par défaut sur PC */
+    }
+    @media (max-width: 768px) {
+      iframe { min-height: 70vh; }
+    }
+  </style>
+    <iframe
+      name="speciesFrame"
+      src="/species/Adelie"
+      id="speciesFrame"
+      onload="resizeIframe(this)"
+    ></iframe>
+    <script>
+    function resizeIframe(iframe) {
+      const min = Math.round(window.innerHeight * 0.85);
+      try {
+        const h = iframe.contentWindow.document.body.scrollHeight;
+        iframe.style.height = Math.max(min, h) + "px";
+      } catch (e) {
+        iframe.style.height = min + "px";
+      }
+    }
+  </script>
+</div>
+</Layout>
