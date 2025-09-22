@@ -1,34 +1,60 @@
 ---
-import Layout from '../../layouts/Layout.astro'
+import Layout from "../../layouts/Layout.astro";
+import Headerspecifics from "../../components/Headerspecifics.astro";
 ---
+
 <Layout>
-    <div>
+  <Headerspecifics current="/iframe/test-iframe" />
+  <div class="p-4">
     <style>
-    iframe {
-      width: 100%;
-      transition: height 0.2s;
-      min-height: 100vh; /* grand par défaut sur PC */
-    }
-    @media (max-width: 768px) {
-      iframe { min-height: 70vh; }
-    }
-  </style>
+      iframe {
+        width: 100%;
+        transition: height 0.2s;
+        min-height: 100vh;
+      }
+      @media (max-width: 768px) {
+        iframe {
+          min-height: 70vh;
+        }
+      }
+    </style>
+
+    <label for="species" class="block mb-2 text-lg font-semibold text-gray-700">Choisissez une espèce :</label>
+    <select
+      id="species"
+      class="p-2 rounded-md bg-white text-gray-800 border !border-gray-300 focus:!outline-none focus:!ring-2 focus:!ring-blue-500"
+    >
+      <option value="">-- Sélectionnez --</option>
+      <option value="Adelie">Adelie</option>
+      <option value="Chinstrap">Chinstrap</option>
+      <option value="Gentoo">Gentoo</option>
+    </select>
+
     <iframe
       name="speciesFrame"
-      src="/species"
+      src="/species/"
       id="speciesFrame"
+      class="mt-4 border rounded-md"
       onload="resizeIframe(this)"
     ></iframe>
+
     <script>
-    function resizeIframe(iframe) {
-      const min = Math.round(window.innerHeight * 0.85);
-      try {
-        const h = iframe.contentWindow.document.body.scrollHeight;
-        iframe.style.height = Math.max(min, h) + "px";
-      } catch (e) {
-        iframe.style.height = min + "px";
+      function resizeIframe(iframe) {
+        const min = Math.round(window.innerHeight * 0.85);
+        try {
+          const h = iframe.contentWindow.document.body.scrollHeight;
+          iframe.style.height = Math.max(min, h) + "px";
+        } catch (e) {
+          iframe.style.height = min + "px";
+        }
       }
-    }
-  </script>
-</div>
+
+      document.querySelector("#species")?.addEventListener("change", (evt) => {
+        const value = evt.target.value;
+        if (value) {
+          document.querySelector("#speciesFrame").src = "/species/" + value + "/";
+        }
+      });
+    </script>
+  </div>
 </Layout>

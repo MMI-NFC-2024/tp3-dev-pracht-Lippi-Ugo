@@ -6,13 +6,31 @@ const species = ["Adelie", "Gentoo", "Chinstrap"];
 ---
 
 <Layout>
-  <Header current="/ancre/slider"/>
-  <nav class="sticky top-0 z-10 bg-white shadow px-4 py-2 flex gap-4">
+  <Header current="/ancre/slider" />
+
+  <!-- Menu Select pour navigation par ancre -->
+  <div class="px-4 py-2">
+    <label for="speciesSelect" class="block mb-2 text-lg font-semibold text-gray-700">
+      Choisissez une espèce :
+    </label>
+    <select
+      id="speciesSelect"
+      class="p-2 rounded-md bg-white text-gray-800 border !border-gray-300 focus:!outline-none focus:!ring-2 focus:!ring-blue-500 mb-4"
+    >
+      <option value="">-- Sélectionnez --</option>
+      {species.map((name) => (
+        <option value={name.toLowerCase()}>{name}</option>
+      ))}
+    </select>
+  </div>
+
+  <!-- Navigation par lien ancre -->
+  <nav aria-label="Navigation par espèce" class="sticky top-0 z-10 bg-white shadow px-4 py-2 flex gap-4">
     {
       species.map((name) => (
         <a
           href={`#${name.toLowerCase()}`}
-          class="text-blue-600 hover:underline"
+          class="text-blue-600 hover:underline focus:!outline-none focus:!ring-2 focus:!ring-blue-500"
         >
           {name}
         </a>
@@ -20,11 +38,10 @@ const species = ["Adelie", "Gentoo", "Chinstrap"];
     }
   </nav>
 
-  <div
-    class="flex overflow-auto scroll-smooth scroll-snap-type-x-mandatory"
-  >
+  <!-- Slider horizontal avec scroll-snap -->
+  <div class="flex overflow-x-auto scroll-smooth snap-x snap-mandatory">
     <section
-      class="min-w-full rounded-xl border border-slate-200 bg-white shadow-sm"
+      class="min-w-full snap-start rounded-xl border border-slate-200 bg-white shadow-sm"
       id="adelie"
     >
       <h2 class="mb-2 text-2xl font-semibold px-8">Adelie</h2>
@@ -32,8 +49,9 @@ const species = ["Adelie", "Gentoo", "Chinstrap"];
         <GraphicSpecies species="Adelie" />
       </div>
     </section>
+
     <section
-      class="min-w-full rounded-xl border border-slate-200 bg-white shadow-sm"
+      class="min-w-full snap-start rounded-xl border border-slate-200 bg-white shadow-sm"
       id="gentoo"
     >
       <h2 class="mb-2 text-2xl font-semibold px-8">Gentoo</h2>
@@ -41,8 +59,9 @@ const species = ["Adelie", "Gentoo", "Chinstrap"];
         <GraphicSpecies species="Gentoo" />
       </div>
     </section>
+
     <section
-      class="min-w-full rounded-xl border border-slate-200 bg-white shadow-sm"
+      class="min-w-full snap-start rounded-xl border border-slate-200 bg-white shadow-sm"
       id="chinstrap"
     >
       <h2 class="mb-2 text-2xl font-semibold px-8">Chinstrap</h2>
@@ -51,4 +70,14 @@ const species = ["Adelie", "Gentoo", "Chinstrap"];
       </div>
     </section>
   </div>
+
+  <!-- Script pour navigation par select -->
+  <script>
+    document.querySelector("#speciesSelect")?.addEventListener("change", (evt) => {
+      const value = evt.target.value;
+      if (value) {
+        location.hash = `#${value}`;
+      }
+    });
+  </script>
 </Layout>

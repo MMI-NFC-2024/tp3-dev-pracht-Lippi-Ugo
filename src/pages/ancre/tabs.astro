@@ -1,0 +1,42 @@
+---
+import { Tabs, TabsList, TabsTab, TabsPanel } from 'accessible-astro-components';
+import GraphicSpecies from "../../components/GraphicSpecies.astro";
+import Header from "../../components/Headerspecifics.astro";
+import Layout from "../../layouts/Layout.astro";
+const species = ["Adelie", "Gentoo", "Chinstrap"];
+---
+
+<Layout>
+  <Header current="/ancre/tabs-slider" />
+
+  <div class="px-4 py-6">
+    <Tabs>
+      <TabsList class="flex gap-4 border-b bg-white">
+        {species.map((name, index) => (
+          <TabsTab
+            id={`tab-${name}`}
+            controls={`panel-${name}`}
+            selected={index === 0}
+            class="px-4 py-2 !font-semibold text-gray-800 aria-selected:!text-white aria-selected:!border-b-2 aria-selected:!border-gray-300 hover:!text-[#fbb6ce] hover:!border-[#fbb6ce] focus:!outline-none"
+          >
+            {name}
+          </TabsTab>
+        ))}
+      </TabsList>
+
+      {species.map((name, index) => (
+        <TabsPanel
+          id={`panel-${name}`}
+          labelledby={`tab-${name}`}
+          selected={index === 0}
+          class="p-4"
+        >
+          <h2 class="text-2xl font-bold mb-4">{name}</h2>
+          <div class="flex justify-center">
+            <GraphicSpecies species={name} />
+          </div>
+        </TabsPanel>
+      ))}
+    </Tabs>
+  </div>
+</Layout>
